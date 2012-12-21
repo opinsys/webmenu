@@ -55,4 +55,4 @@ define [
       @$el.removeClass "selectHighlight"
 
     scrollToItem: ->
-      @bubble "scroll", @$el.offset().top
+      @bubble "scroll", @$el.offset().top + @$el.innerHeight()

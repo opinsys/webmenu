@@ -51,6 +51,9 @@ define [
         @refreshViews()
         @navigation.deactivate()
 
+      @listenTo this, "scroll", (itemBottom) =>
+        @$el.scrollTop(itemBottom - @$el.innerHeight())
+
     setCurrent: ->
       @setItems(@model.items.toArray())
 

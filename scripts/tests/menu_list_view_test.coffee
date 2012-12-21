@@ -81,4 +81,15 @@ define [
         menuList.trigger "reset"
         expect(menuList.navigation.deactivate).to.have.been.called.once
 
+    describe "'scroll' event", ->
 
+      it "scroll to bottom of the item", ->
+        menuItem = menuList.getMenuItemViews()[3]
+        menuItem.scrollToItem()
+        scrollTop = menuList.$el.height() + menuItem.$el.height()
+        console.log "To scroll: ", scrollTop
+        console.log "current scrollTop: ", menuList.$el.scrollTop()
+        menuList.refreshViews()
+        console.log "menuList innerHeight: ", menuList.$el.innerHeight()
+        console.log "menuItem innerHeight: ", menuItem.$el.innerHeight()
+        expect(menuList.$el.scrollTop()).to.eq scrollTop
