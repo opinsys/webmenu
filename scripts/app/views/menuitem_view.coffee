@@ -53,3 +53,6 @@ define [
 
     hideSelectHighlight: ->
       @$el.removeClass "selectHighlight"
+
+    scrollToItem: ->
+      @bubble "scroll", @$el.offset().top

@@ -71,6 +71,13 @@ define [
         nav.select(menuViews[1])
         expect(view.hideSelectHighlight).to.have.been.called.once
 
+      it "select() calls scrollToItem()", ->
+        view = menuViews[0]
+        view.scrollToItem = chai.spy(view.scrollToItem)
+        nav = new Navigation menuViews, 3
+        nav.select(view)
+        expect(view.scrollToItem).to.have.been.called.once
+
       it "is has not selected", ->
         nav = new Navigation menuViews, 3
         expect(nav.selected).to.be.not.ok

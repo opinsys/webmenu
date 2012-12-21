@@ -57,6 +57,7 @@ define [
     select: (view) ->
       @selected?.hideSelectHighlight()
       view.displaySelectHighlight()
+      view.scrollToItem()
       @selected = view
 
     next: ->
