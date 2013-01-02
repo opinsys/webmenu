@@ -50,9 +50,15 @@ define [
 
     displaySelectHighlight: ->
       @$el.addClass "selectHighlight"
+      @bubble "scroll", @
 
     hideSelectHighlight: ->
       @$el.removeClass "selectHighlight"
 
-    scrollToItem: ->
-      @bubble "scroll", @$el.offset().top + @$el.innerHeight()
+    scrollToItem: (orientation)->
+#      #@bubble "scroll", @$el.offset().top + @$el.innerHeight()
+#      console.log "Scroll to ", orientation
+#      if orientation is "down"
+#        @bubble "scroll", @$el.innerHeight()
+#      else
+#        @bubble "scroll", @$el.innerHeight() * -1

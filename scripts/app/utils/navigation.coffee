@@ -55,9 +55,14 @@ define [
     isActive: -> !!@selected
 
     select: (view) ->
+      if @selected
+        if @selected.$el.offset().top > view.$el.offset().top
+          view.scrollToItem("up")
+        else
+          view.scrollToItem("down")
       @selected?.hideSelectHighlight()
       view.displaySelectHighlight()
-      view.scrollToItem()
+      #view.scrollToItem()
       @selected = view
 
     next: ->

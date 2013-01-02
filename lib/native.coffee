@@ -81,7 +81,7 @@ module.exports = (gui, bridge) ->
       return
     console.info "Hiding menu window"
     if argv.hide
-      Window.hide()
+      #Window.hide()
     else
       console.warn "Not hiding window because --no-hide is set or implied by devtools"
 

@@ -52,7 +52,15 @@ define [
         @navigation.deactivate()
 
       @listenTo this, "scroll", (itemBottom) =>
-        @$el.scrollTop(itemBottom - @$el.innerHeight())
+        #debugger
+        if itemBottom.$el.offset().top - @$el.offset().top + itemBottom.$el.innerHeight() > @$el.innerHeight()
+          @$el.scrollTop( @$el.scrollTop() + itemBottom.$el.innerHeight() )
+        else if itemBottom.$el.offset().top - @$el.offset().top + itemBottom.$el.innerHeight() < @$el.innerHeight()
+          @$el.scrollTop( @$el.scrollTop() - itemBottom.$el.innerHeight() )
+
+        #if itemBottom.$el.innerHeight()
+        #@$el.scrollTop( itemBottom + @$el.offset().top - @$el.innerHeight() )
+        #@$el.scrollTop( @$el.scrollTop() + itemBottom )
 
     setCurrent: ->
       @setItems(@model.items.toArray())
