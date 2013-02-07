@@ -10,7 +10,7 @@
   "window": {
     "title": "Webmenu",
     "show": false,
-    "toolbar": false,
+    "toolbar": true,
     "width": 1000,
     "height": 505,
     "position": "mouse",
