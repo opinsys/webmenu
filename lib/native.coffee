@@ -93,11 +93,18 @@ module.exports = (gui, bridge) ->
     renderBug: process.env.RENDER_BUG
   })
 
-
   if process.env.devtools
     process.env.nohide = 1
     config.devtools = true
+
   Window = gui.Window.get()
+  Window.window.resizeTo(
+    # Window.window.screen.width,
+    800,
+    410
+  )
+  Window.setResizable(false)
+
 
 
   ###*

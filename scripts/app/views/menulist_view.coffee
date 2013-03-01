@@ -1,5 +1,6 @@
 define [
   "backbone.viewmaster"
+  "bacon"
 
   "cs!app/application"
   "cs!app/utils/navigation"
@@ -7,6 +8,7 @@ define [
   "hbs!app/templates/menulist"
 ], (
   ViewMaster
+  Bacon
 
   Application
   Navigation
@@ -32,6 +34,31 @@ define [
       $(window).keydown (e) =>
         @navigation.cols = @itemCols()
         @navigation.handleKeyEvent(e)
+
+      @$el.css("cursor", "pointer")
+
+      mouseDown = @$el.asEventStream("mousedown")
+      mouseUp = $(window).asEventStream("mouseup")
+      move = $(document).asEventStream("mousemove")
+
+      active = mouseDown.map(true).merge(mouseUp.map(false)).toProperty(false)
+
+      current = @$el.scrollTop()
+      move.merge(@$el.asEventStream("mousedown")).map((e) -> e.pageY).filter(active).diff(0, (a, b) =>
+        a - b
+      ).onValue (val) =>
+        console.log "DIFF #{ val }"
+        console.log "CURRENT #{ current }"
+        current = current - val
+        @$el.scrollTop( current )
+
+
+
+      lateActive = move.delay(300).map(active).skipDuplicates().toProperty(false)
+
+      lateActive.onValue (val) ->
+        MenuItemView.openDisabled = val
+        # console.log "LATE MOVE #{ val }"
 
       @listenTo this, "reset", =>
         @model = @initial
