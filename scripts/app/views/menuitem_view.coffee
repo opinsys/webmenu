@@ -20,6 +20,8 @@ define [
 
   class MenuItemView extends ViewMaster
 
+    MenuItemView.openDisabled = false
+
     className: "bb-menu-item"
 
     template: template
@@ -49,7 +51,7 @@ define [
         @$img.removeClass("rotate-loading")
 
     events:
-      "click": "open"
+      "mouseup": "open"
       "mouseover": "toggleInactiveNotify"
       "mouseout": "toggleInactiveNotify"
 
@@ -59,9 +61,8 @@ define [
       "$img": "img,.cssIcon"
 
     open: ->
-
-      if @isInactive()
-        return
+      return if MenuItemView.openDisabled
+      return if @isInactive()
 
       if @model.get("type") is "menu"
         renderFix()
