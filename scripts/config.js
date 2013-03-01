@@ -16,10 +16,15 @@ require.config({
     },
     "uri": {
       exports: "URI"
+    },
+    "bacon": {
+      deps: ["jquery"],
+      exports: ["Bacon"]
     }
   },
   paths: {
     jquery: "vendor/jquery",
+    bacon: "vendor/Bacon",
     json2: "vendor/json2",
     i18nprecompile: "vendor/i18nprecompile",
     underscore: "vendor/underscore",
