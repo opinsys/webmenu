@@ -24,7 +24,7 @@ translate = (key, data) ->
     translation = current(data)
     if translation.match(untranslatedRegexp)
         clean = translation.replace(untranslatedRegexp, "")
-        console.error "#{ window.navigator.language }: Translation missing #{ key }: #{ clean }"
+        console.error "#{ window.LANG }: Translation missing #{ key }: #{ clean }"
         return clean
 
     return translation

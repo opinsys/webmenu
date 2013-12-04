@@ -94,6 +94,8 @@ menutools.injectDesktopData(
     config.hostType
 )
 
+fs.writeFileSync("/home/epeli/menu.json", JSON.stringify(menuJSON, null, "  "))
+
 desktopReadTook = (Date.now() - desktopReadStarted) / 1000
 console.log(".desktop files read took " + desktopReadTook + " seconds")
 

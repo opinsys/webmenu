@@ -1,9 +1,11 @@
 
 fs = require "fs"
-gettext = require "../vendor/gnu-gettext"
 ini = require "ini"
 _ = require "underscore"
 s = require "underscore.string"
+
+GettextWrap = require "./GettextWrap"
+parseLocale = require "./parseLocale"
 
 
 # Call a function with given array of arguments arrays in series. Return on
@@ -15,17 +17,6 @@ callUntilOk = (fn, argList...) ->
   else
     return callUntilOk(fn, argList...)
 
-
-# Parse system locale, eg. fi_FI.UTF-8 to object
-parseLocale = (systemLocale) ->
-  ob = {}
-  [locale, encoding] =  systemLocale.split(".")
-  ob.l
-  ob.locale = locale
-  ob.encoding = encoding if encoding
-  ob.lang = locale.split("_")[0]
-  ob.original = systemLocale
-  return ob
 
 
 # Find translated version of an attribute from desktopEntry object
@@ -45,9 +36,8 @@ findTranslated = (desktopEntry, attr, systemLocale) ->
     return embedded
 
   if domain = desktopEntry["X-Ubuntu-Gettext-Domain"]
-
-    gettext.setLocale("LC_ALL", systemLocale)
-    translated = gettext.dgettext(domain, original)
+    gt = new GettextWrap(systemLocale)
+    translated = gt.translate(domain, original)
     if translated isnt original
       return translated
 
