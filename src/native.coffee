@@ -87,6 +87,7 @@ config.guestSession = (process.env.GUEST_SESSION is "true")
 
 try
     puavoDomain = fs.readFileSync("/etc/puavo/domain").toString().trim()
+    config.puavoDomain = puavoDomain
     expandVariables = (ob, attr) ->
         tmpl = Handlebars.compile(ob[attr])
         ob[attr] = tmpl(puavoDomain: puavoDomain)
